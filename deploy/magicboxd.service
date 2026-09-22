@@ -1,0 +1,28 @@
+[Unit]
+Description=WireLab Experiments network appliance
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/magicboxd --token-file /etc/magicbox/token --database /var/lib/magicbox/magicbox.sqlite --web-root /usr/local/share/magicbox/web
+WorkingDirectory=/var/lib/magicbox
+StateDirectory=magicbox
+StateDirectoryMode=0700
+RuntimeDirectory=magicbox
+RuntimeDirectoryMode=0700
+UMask=0077
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=90
+CapabilityBoundingSet=CAP_NET_RAW CAP_NET_ADMIN
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/magicbox
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK AF_PACKET
+LockPersonality=true
+RestrictRealtime=true
+
+[Install]
+WantedBy=multi-user.target
